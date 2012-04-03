@@ -111,7 +111,7 @@ int main(int argc, char **argv)
     GLenum glew_status;
     
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
     glutInitWindowSize(640, 480);
     glutCreateWindow("Basic Shaders Example");
 
