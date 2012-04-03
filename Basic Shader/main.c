@@ -1,12 +1,13 @@
+#include <GL/glew.h>
+
 #ifdef __APPLE__
-#include <GLEW/glew.h>
 #include <GLUT/glut.h>
 #else
-#include <GL/glew.h>
 #include <GL/glut.h>
 #endif /* __APPLE__ */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 const char *vert_shader_src =

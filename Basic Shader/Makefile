@@ -1,13 +1,14 @@
 UNAME  	= $(shell uname -s)
 CC 	= gcc
-CFLAGS	= -Wall -g
+CFLAGS	= -Wall
 LD	= $(CC)
 ifeq ($(UNAME),Darwin)
-LDLIBS 	= -framework GLUT -framework GLEW -framework OpenGL -lobjc -lm
-LDFLAGS =
+LDLIBS 	= -framework GLUT -framework OpenGL -lobjc -lm -lGLEW
+LDFLAGS = -I/opt/local/include -L/opt/local/lib
+CFLAGS 	:= -I/opt/local/include
 else
 LDLIBS 	= -lglut -lGL -lGLU -lGLEW -lX11 -lXmu -lXi -lm
-LDFLAGS = -I /usr/include/GL/ -L /usr/include/GL
+LDFLAGS = -I/usr/include/GL/ -L/usr/include/GL
 endif
 RM	= rm
 
