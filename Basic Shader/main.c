@@ -120,7 +120,7 @@ int main(int argc, char **argv)
     if (glew_status != GLEW_OK)
     {
         printf("FAILED TO INIT GLEW\n");
-        exit(EXIT_FAILURE);
+        return 1;
     }
 
     init();
