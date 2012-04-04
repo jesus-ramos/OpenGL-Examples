@@ -1,1 +1,5 @@
 Basic OpenGL examples in C
+
+Requires GLEW, FreeGLUT and OpenGL 2.0 compatible graphics card
+
+All examples are standalone so there will be some repeated code.
