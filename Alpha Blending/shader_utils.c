@@ -1,7 +1,8 @@
-#include <stdlib.h>>
+#include <stdlib.h>
 #include <fcntl.h>
 #include <string.h>
 #include <stdio.h>
+#include <unistd.h>
 
 #include "shader_utils.h"
 
@@ -62,10 +63,7 @@ void print_error(GLuint obj)
 
 int compile_shader(GLuint shader, char *data)
 {
-    GLint buff_len;
-    GLsizei str_len;
     GLint compiled;
-    GLchar *log;
     int len;
 
     len = strlen(data);

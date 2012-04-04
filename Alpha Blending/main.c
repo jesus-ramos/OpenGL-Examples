@@ -14,10 +14,18 @@
 #define FRAG_SHADER_FILE "alphashader.frag"
 
 GLuint program;
+GLuint vbo;
+GLint attribute_coord2d;
 
 int init()
 {
     GLuint fs, vs;
+    float verts[] =
+        {
+            0.0, 0.8,
+            -0.8, -0.8,
+            0.8, -0.8
+        };
     
     program = glCreateProgram();
 
@@ -32,12 +40,33 @@ int init()
     if (!link_shaders(program))
         return 0;
 
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(verts), verts, GL_STATIC_DRAW);
+
+    attribute_coord2d = glGetAttribLocation(program, "coord2d");
+    if (attribute_coord2d == -1)
+    {
+        printf("Could not bind attribute\n");
+        return 0;
+    }
+
     return 1;
 }
 
 void display()
 {
-    
+    glClearColor(1.0, 1.0, 1.0, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glUseProgram(program);
+    glEnableVertexAttribArray(attribute_coord2d);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glVertexAttribPointer(attribute_coord2d, 2, GL_FLOAT, GL_FALSE, 0, 0);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDisableVertexAttribArray(attribute_coord2d);
+
+    glFlush();
 }
 
 int main(int argc, char **argv)
