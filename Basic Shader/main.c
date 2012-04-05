@@ -65,7 +65,7 @@ void display()
         };
     int i;
     
-    glClearColor(1.0, 1.0, 1.0, 1.0);
+    glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT);
 
     glUseProgram(program);
