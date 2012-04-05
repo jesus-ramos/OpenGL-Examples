@@ -10,13 +10,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-const char *vert_shader_src =
-    "attribute vec2 coord2d;"
-    "void main(void)"
-    "{"
-    "    gl_Position = vec4(coord2d, 0.0, 1.0);"
-    "}";
-
 const char *frag_shader_src =
     "void main(void)"
     "{"
@@ -31,28 +24,20 @@ GLint attribute_coord2d;
 
 void init_shaders()
 {
-    GLuint fs, vs;
+    GLuint fs;
     GLint compiled, linked;
 
     fs = glCreateShader(GL_FRAGMENT_SHADER);
-    vs = glCreateShader(GL_VERTEX_SHADER);
 
     glShaderSource(fs, 1, &frag_shader_src, NULL);
-    glShaderSource(vs, 1, &vert_shader_src, NULL);
 
-    glCompileShader(vs);
     glCompileShader(fs);
 
     glGetShaderiv(fs, GL_COMPILE_STATUS, &compiled);
     if (compiled == GL_FALSE)
         goto bad_shader;
 
-    glGetShaderiv(vs, GL_COMPILE_STATUS, &compiled);
-    if (compiled == GL_FALSE)
-        goto bad_shader;
-
     program = glCreateProgram();
-    glAttachShader(program, vs);
     glAttachShader(program, fs);
     glLinkProgram(program);
     glGetProgramiv(program, GL_LINK_STATUS, &linked);
@@ -78,33 +63,24 @@ void display()
             -0.8, -0.8,
             0.8, -0.8
         };
+    int i;
     
     glClearColor(1.0, 1.0, 1.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
 
     glUseProgram(program);
 
-    glEnableVertexAttribArray(attribute_coord2d);
-    glVertexAttribPointer(attribute_coord2d, 2, GL_FLOAT, GL_FALSE, 0, verts);
-
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-    glDisableVertexAttribArray(attribute_coord2d);
-
-    glutSwapBuffers();
+    glBegin(GL_TRIANGLES);
+    for (i = 0; i < 6; i += 2)
+        glVertex2f(verts[i], verts[i + 1]);
+    glEnd();
+    
+    glFlush();
 }
 
 void init()
 {
-    const char *attribute_name = "coord2d";
-
     init_shaders();
-
-    attribute_coord2d = glGetAttribLocation(program, attribute_name);
-    if (attribute_coord2d == -1)
-    {
-        printf("COULND'T GET ATTRIBUTE_COORD2D\n");
-        exit(EXIT_FAILURE);
-    }
 }
 
 int main(int argc, char **argv)
@@ -112,7 +88,7 @@ int main(int argc, char **argv)
     GLenum glew_status;
     
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
+    glutInitDisplayMode(GLUT_RGBA);
     glutInitWindowSize(640, 480);
     glutCreateWindow("Basic Shaders Example");
 
