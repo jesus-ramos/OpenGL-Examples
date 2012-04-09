@@ -108,8 +108,8 @@ void display()
     glPushMatrix();
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glRotatef(angle, 0.0, 0.0, 1.0);
     glTranslatef(move, 0.0, 0.0);
+    glRotatef(angle, 0.0, 0.0, 1.0);
 
     glGetFloatv(GL_MODELVIEW_MATRIX, mat);
     
