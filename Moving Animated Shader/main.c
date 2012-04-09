@@ -102,7 +102,7 @@ void display()
 {
     GLfloat mat[16];
     
-    glClearColor(1.0, 1.0, 1.0, 1.0);
+    glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT);
 
     glPushMatrix();
