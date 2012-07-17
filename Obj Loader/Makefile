@@ -28,7 +28,7 @@ depend : .depend
 
 include .depend
 
-.c.o :
+.cpp.o :
 	$(CC) $(CFLAGS) -c $<
 
 $(TARGET) : $(OBJS)
